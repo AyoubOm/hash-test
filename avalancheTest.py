@@ -3,18 +3,20 @@ Why this test
 1- allow to see quickly the result on known and my custom modified hash functions
 2- Tune the constants used in famous hash functions and understand why the creator choosed them
 """
+from typing import List
+from random import randint
+from constants import *
 
-NB_BITS = 32
 
 
-def avalancheTest(hashFunc: callable, nbReps: int) -> list<list<float>:
+def avalancheTest(hashFunc: callable, nbReps: int) -> List[List[float]]:
 	"""
 	return avalanche matrix: input bits (rows) and output bits (cols).
 	The cell value is the probability of output bit change if input bit change
 	"""
 	counts = [[0 for _ in range(NB_BITS)] for _ in range(NB_BITS)]
 
-	for rep in nbReps:
+	for rep in range(nbReps):
 		initialNum = rngInt()
 		initialHash = hashFunc(initialNum)
 
@@ -27,17 +29,23 @@ def avalancheTest(hashFunc: callable, nbReps: int) -> list<list<float>:
 				outputBitValue = getBit(secondHash, outputBit)
 				counts[inputBit][outputBit] += initialBitValue ^ outputBitValue 
 
-	return [[(counts[inBit][outBit] / nbReps) for outBit in range(NB_BITS)] for inBit in range(NB_BITS)]
+
+	avalancheMatrix = [[(counts[inBit][outBit] / nbReps) for outBit in range(NB_BITS)] for inBit in range(NB_BITS)]
+	pprintAvalanche(avalancheMatrix)
+	return avalancheMatrix
 
 
-def pprintAvalanche(matrix: list<list<int>):
+def pprintAvalanche(matrix: List[List[float]]):
 	"""
 	pprint avalanche matrix
 	"""
 	for i, row in enumerate(matrix):
-		print("{}\t".format(i))
+		print("{}".format(i + 1), end='\t')
 		for col in row:
-			print(matrix[row][col], end='\t')
+			if col > MIN_AVALANCHE and col < MAX_AVALANCHE:
+				print(green(col), end='\t')
+			else:
+				print(red(col), end='\t')				
 		print()
 
 
