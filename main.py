@@ -1,14 +1,18 @@
 from djb2 import djb2
 from avalancheTest import avalancheTest
+from jenkinsOneAtATime import oneAtATime
+from constants import AVALANCHE_REPS
 
 
 
 def main():
-	hashFuncs = [djb2]
+	# hashFuncs = [oneAtATime]
 	# hashFuncs = [lambda x: x*33]
+	hashFuncs = [djb2]
+
 
 	for hashFunc in hashFuncs:
 		print("========== Avalanche test on '{}' ==========".format(hashFunc.__name__))
-		avalancheTest(hashFunc, 100000)
+		avalancheTest(hashFunc, AVALANCHE_REPS)
 
 main()

@@ -42,10 +42,14 @@ def pprintAvalanche(matrix: List[List[float]]):
 	for i, row in enumerate(matrix):
 		print("{}".format(i + 1), end='\t')
 		for col in row:
-			if col > MIN_AVALANCHE and col < MAX_AVALANCHE:
-				print(green(col), end='\t')
+			deviation = abs(col - 0.5)
+
+			if deviation <= STRONG_AVALANCHE:
+				print(strong(col), end='\t')
+			elif deviation <= WEAK_AVALANCHE:
+				print(weak(col), end='\t')
 			else:
-				print(red(col), end='\t')				
+				print(bad(col), end='\t')				
 		print()
 
 
@@ -72,9 +76,3 @@ def getBit(num: int, bit: int):
 	bit is 0-indexed
 	"""
 	return (num >> bit) & 1
-
-
-
-def main(hashFunc: callable, nbReps: int):
-	matrix = avalancheTest(hashFunc, nbReps)
-	pprintAvalanche(matrix)

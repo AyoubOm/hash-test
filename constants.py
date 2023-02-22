@@ -1,15 +1,24 @@
 NB_BITS = 16
-MIN_AVALANCHE = 1/3
-MAX_AVALANCHE = 2/3
+MASK = (1 << NB_BITS) - 1
 
-class bcolors:
-    OKGREEN = '\033[92m'
+STRONG_AVALANCHE = 0.1
+WEAK_AVALANCHE = 1/6
+
+AVALANCHE_REPS = 100000
+
+
+class colors:
+    OK = '\033[92m'
     FAIL = '\033[91m'
+    WEAK = '\033[93m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
 
-def red(num):
-	return f"{bcolors.FAIL}"+str(num)+f"{bcolors.ENDC}"
+def bad(num):
+	return f"{colors.FAIL}"+str(num)+f"{colors.ENDC}"
 
-def green(num):
-	return f"{bcolors.OKGREEN}"+str(num)+f"{bcolors.ENDC}"
+def strong(num):
+	return f"{colors.OK}"+str(num)+f"{colors.ENDC}"
+
+def weak(num):
+	return f"{colors.WEAK}"+str(num)+f"{colors.ENDC}"

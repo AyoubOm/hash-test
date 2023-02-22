@@ -1,6 +1,5 @@
-from constants import NB_BITS
+from constants import NB_BITS, MASK
 
-MASK = (1 << NB_BITS) - 1
 
 
 def djb2(num: int) -> int:
