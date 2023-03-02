@@ -1,5 +1,4 @@
-from constants import NB_BITS, MASK
-
+from constants import MASK
 
 
 def djb2(num: int) -> int:
