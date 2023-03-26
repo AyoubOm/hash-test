@@ -1,7 +1,7 @@
 """
 Why this test
 1- allow to see quickly the result on known and custom modified hash functions
-2- Tune the constants used in famous hash functions and understand why the creator choosed them
+2- Tune the constants used in famous hash functions
 """
 from typing import List
 from random import randint
